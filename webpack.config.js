@@ -35,12 +35,24 @@ module.exports = {
         ],
       },
       {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+      {
         test: /\.(png|svg|jpg|jpeg|gif)$/,
         use: ['file-loader']
       },
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: ['file-loader']
+        test: /\.(woff|ttf|eot|svg)(\?v=[a-z0-9]\.[a-z0-9]\.[a-z0-9])?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/'
+            }
+          }
+        ]
       }
     ]
   },
@@ -50,6 +62,7 @@ module.exports = {
       new CssMinimizerPlugin()
     ]
   },
+  // Opens browser on run of npm start 
   devServer: {
     open: true
   }
